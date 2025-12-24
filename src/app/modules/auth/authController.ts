@@ -8,9 +8,10 @@ export class AuthController{
         this.authService = new AuthService();
     }
 
-    async register(req:Request, res:Response, next:NextFunction){
+    register = async (req:Request, res:Response, next:NextFunction) => {
         try {
             const validateData=AuthValidator.registerSchema.parse(req.body)
+          // console.log(validateData)
             const {user,token}= await this.authService.register(validateData)
             res.status(201).json({
                 success:true,
@@ -32,7 +33,7 @@ export class AuthController{
         }
     }
 
-    async login(req:Request, res:Response, next:NextFunction){
+    login = async (req:Request, res:Response, next:NextFunction) => {
         try {
             const validateData=AuthValidator.loginSchema.parse(req.body)
             const {user,}= await this.authService.login(validateData)
@@ -45,7 +46,7 @@ export class AuthController{
 
     }
 
-    async getMe(req: Request, res: Response, next: NextFunction): Promise<void> {
+    getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       // req.user is attached by protect middleware
       if (!req.user) {
@@ -53,7 +54,7 @@ export class AuthController{
         return;
       }
 
-      const user = await this.authService.getUserById(req.user.id);
+      const user = await this.authService.getUserById((req.user as any).id);
 
       if (!user) {
         res.status(404).json({ success: false, message: 'User not found' });
@@ -75,7 +76,7 @@ export class AuthController{
     }
   }
 
-  async logout(_req: Request, res: Response, next: NextFunction) {
+  logout = async (_req: Request, res: Response, next: NextFunction) => {
     try {
       AuthService.clearAuthCookie(res);
       res.status(200).json({

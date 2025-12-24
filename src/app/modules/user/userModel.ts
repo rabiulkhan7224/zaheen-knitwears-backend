@@ -11,6 +11,7 @@ export interface IUser extends Document {
   googleId?: string;
   role: UserRole;
   isVerified: boolean;
+  profileImage?:string;
 }
 
 const userSchema =new Schema<IUser>({
@@ -20,6 +21,8 @@ name: { type: String, required: true },
   password: { type: String },
   googleId: { type: String },
   role: { type: String, enum: Object.values(UserRole), default: UserRole.USER },
+   profileImage:{ type: String },
+
   isVerified: { type: Boolean, default: false },    
 } ,{
     timestamps: true

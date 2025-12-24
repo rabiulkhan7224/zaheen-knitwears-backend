@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { AuthController } from './authController';
+import { protect } from '../../middleware/authMiddleware';
 // import passport from '../config/passport';
 
 const router = Router();
@@ -7,7 +8,7 @@ const authController = new AuthController();
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
-router.get('/me', authController.getMe);
+router.get('/me',protect, authController.getMe);
 router.post('/logout', authController.logout);
 // Google OAuth
 // router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

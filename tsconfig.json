@@ -11,6 +11,7 @@
     "moduleResolution": "node",                  /* Use Node.js module resolution */
     "esModuleInterop": true,                     /* Enables interoperability with CommonJS */
     "allowSyntheticDefaultImports": true,        /* Allow default imports from modules with no default export */
+    "typeRoots": ["./node_modules/@types", "./src/app/types"],  /* Include custom types directory */
 
     /* Emit */
     "outDir": "./dist",                          /* Redirect output structure to the dist directory */

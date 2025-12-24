@@ -53,7 +53,14 @@ export class AuthService {
   }
 
   async register(data: { name: string; email: string; password: string }) {
-    const hashed = await bcrypt.hash(data.password, 10);
+    console.log(data)
+// Check if email already exists
+    const existingUser = await User.findOne({ email: data.email.toLowerCase() });
+
+    if (existingUser) {
+      // Throw a clear error (will be caught in controller)
+      throw new Error('Email already in use. Please login or use a different email.');
+    }    const hashed = await bcrypt.hash(data.password, 10);
     const user = await User.create({ ...data, password: hashed });
 
     return { user, token: this.generateToken(user) };

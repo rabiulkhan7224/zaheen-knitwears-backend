@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { Database } from './config/db';
 import router from './app/routers';
 import cookieParser from 'cookie-parser';
+import { globalErrorHandler } from './app/middleware/errorMiddleware';
 
 const app = express();
 app.use(express.json());
@@ -19,5 +20,7 @@ const homeRoute = (_req: Request, res: Response): void => {
 };
 app.get('/', homeRoute);
 app.use('/api/v1', router);
+// error
+app.use(globalErrorHandler);
 
 export default app;
