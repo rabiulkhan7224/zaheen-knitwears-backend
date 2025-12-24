@@ -8,5 +8,12 @@ export class EnvConfig {
     static get mongoUri():string{
         return process.env.MONGO_URI || '';
     }
-    // Add more as needed (e.g., JWT_SECRET)
+static get jwtSecret(): string { return process.env.JWT_SECRET!; }
+  static get jwtExpiresIn(): string { return process.env.JWT_EXPIRES_IN || '7d'; }
+  static get googleClientId(): string { return process.env.GOOGLE_CLIENT_ID!; }
+  static get googleClientSecret(): string { return process.env.GOOGLE_CLIENT_SECRET!; }
+  static get googleCallbackUrl(): string { return process.env.GOOGLE_CALLBACK_URL!; }
+  static get stripeSecretKey(): string { return process.env.STRIPE_SECRET_KEY!; }
+  static get stripeWebhookSecret(): string { return process.env.STRIPE_WEBHOOK_SECRET!; }
+  static get frontendUrl(): string { return process.env.FRONTEND_URL!; }
 }
