@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { Database } from './config/db';
+import router from './app/routers';
 
 const app = express();
 app.use(express.json());
@@ -15,5 +16,6 @@ const homeRoute = (_req: Request, res: Response): void => {
   })
 };
 app.get('/', homeRoute);
+app.use('/api/v1', router);
 
 export default app;

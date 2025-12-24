@@ -1,5 +1,6 @@
 // src/routes/index.ts
 import { Router } from 'express';
+import productRoutes from '../modules/product/productRoutes';
 // import authRoutes from './authRoutes';
 // import productRoutes from './productRoutes';
 // import cartRoutes from './cartRoutes';
