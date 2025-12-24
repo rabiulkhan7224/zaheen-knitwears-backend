@@ -6,6 +6,7 @@ import { Schema, model, Document } from 'mongoose';
   price: number;
   size: string[]; // e.g., ['S', 'M', 'L']
   color: string[];
+    images: string[];
 //   category: string; // Reference to Category
   stock: number;
 }
@@ -15,6 +16,7 @@ const productSchema = new Schema<IProduct>({
   description: { type: String },
   price: { type: Number, required: true },
   size: { type: [String], required: true },
+  images: { type: [String], required: true },
   color: { type: [String], required: true },
 //   category: { type: Schema.Types.ObjectId, ref: 'Category' },
   stock: { type: Number, default: 0 },

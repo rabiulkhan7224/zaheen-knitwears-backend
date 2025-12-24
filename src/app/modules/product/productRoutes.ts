@@ -1,7 +1,10 @@
 // src/routes/productRoutes.ts
 import { Router } from 'express';
-import { ProductController } from '../controllers/productController';
-import { validateRequest } from '../middleware/validateRequest';
+
+import { protect, restrictTo } from '../../middleware/authMiddleware';
+import { ProductValidator } from '../../validators/productValidator';
+import { ProductController } from './productController';
+import { validateRequest } from '../../middleware/validateRequest';
 // import { ProductValidator } from '../validators/productValidator';
 // import { protect, restrictTo } from '../middleware/authMiddleware';
 

@@ -1,3 +1,4 @@
+//
 import { Request, Response, NextFunction } from 'express';
 import { ProductService } from './productService';
 
@@ -9,7 +10,7 @@ export class ProductController {
   }
 
   // GET /api/products
-  async getAllProducts(req: Request, res: Response, next: NextFunction) {
+  async getAllProducts(_req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const products = await this.productService.getAllProducts();
       res.status(200).json({
@@ -17,24 +18,26 @@ export class ProductController {
         count: products.length,
         data: products,
       });
+      return;
     } catch (error) {
       next(error);
     }
   }
 
   // GET /api/products/:id
-  async getProductById(req: Request, res: Response, next: NextFunction) {
+  async getProductById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const product = await this.productService.getProductById(req.params.id);
       if (!product) {
-        return res.status(404).json({ success: false, message: 'Product not found' });
+        res.status(404).json({ success: false, message: 'Product not found' });
+        return;
       }
       res.status(200).json({ success: true, data: product });
+      return;
     } catch (error) {
       next(error);
     }
   }
-
   // POST /api/products (Admin only)
   async createProduct(req: Request, res: Response, next: NextFunction) {
     try {
@@ -46,26 +49,30 @@ export class ProductController {
   }
 
   // PATCH /api/products/:id (Admin only)
-  async updateProduct(req: Request, res: Response, next: NextFunction) {
+  async updateProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const product = await this.productService.updateProduct(req.params.id, req.body);
       if (!product) {
-        return res.status(404).json({ success: false, message: 'Product not found' });
+        res.status(404).json({ success: false, message: 'Product not found' });
+        return;
       }
       res.status(200).json({ success: true, data: product });
+      return;
     } catch (error) {
       next(error);
     }
   }
 
   // DELETE /api/products/:id (Admin only)
-  async deleteProduct(req: Request, res: Response, next: NextFunction) {
+  async deleteProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const product = await this.productService.deleteProduct(req.params.id);
       if (!product) {
-        return res.status(404).json({ success: false, message: 'Product not found' });
+        res.status(404).json({ success: false, message: 'Product not found' });
+        return;
       }
       res.status(200).json({ success: true, message: 'Product deleted' });
+      return;
     } catch (error) {
       next(error);
     }

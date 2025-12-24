@@ -5,6 +5,8 @@
     "module": "commonjs",                        /* Specify module code generation */
     "lib": ["ES2020"],                           /* Include ES2020 library features */
 
+
+    
     /* Module Resolution */
     "moduleResolution": "node",                  /* Use Node.js module resolution */
     "esModuleInterop": true,                     /* Enables interoperability with CommonJS */
@@ -27,7 +29,7 @@
     "alwaysStrict": true,                        /* Parse in strict mode and emit "use strict" */
 
     /* Additional Checks */
-    "noUnusedLocals": true,                      /* Report errors on unused locals */
+    "noUnusedLocals": false,                      /* Report errors on unused locals */
     "noUnusedParameters": true,                  /* Report errors on unused parameters */
     "noImplicitReturns": true,                   /* Report error when not all code paths return a value */
     "noFallthroughCasesInSwitch": true,          /* Report errors for fallthrough cases in switch */

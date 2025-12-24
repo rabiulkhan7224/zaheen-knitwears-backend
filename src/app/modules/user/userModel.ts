@@ -21,7 +21,7 @@ name: { type: String, required: true },
   googleId: { type: String },
   role: { type: String, enum: Object.values(UserRole), default: UserRole.USER },
   isVerified: { type: Boolean, default: false },    
-} {
+} ,{
     timestamps: true
 }
 )

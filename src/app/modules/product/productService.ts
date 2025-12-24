@@ -39,6 +39,7 @@ export class ProductService {
     size?: string;
     color?: string;
     featured?: boolean;
+    search?: string;
   }): Promise<IProduct[]> {
     const filter: any = {};
 
@@ -51,7 +52,12 @@ export class ProductService {
     if (query.size) filter.sizes = query.size;
     if (query.color) filter.colors = query.color;
     if (query.featured !== undefined) filter.featured = query.featured;
-
+    if (query.search) {
+      filter.$or = [
+        { name: { $regex: query.search, $options: 'i' } },
+        { description: { $regex: query.search, $options: 'i' } },
+      ];
+    }
     return await Product.find(filter).populate('category', 'name');
   }
 }

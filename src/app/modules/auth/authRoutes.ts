@@ -7,7 +7,8 @@ const authController = new AuthController();
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
-
+router.get('/me', authController.getMe);
+router.post('/logout', authController.logout);
 // Google OAuth
 // router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 // router.get(

@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express'
 import { Database } from './config/db';
 import router from './app/routers';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 Database.connect();
 // Home route
 const homeRoute = (_req: Request, res: Response): void => {
