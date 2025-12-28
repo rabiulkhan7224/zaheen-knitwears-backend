@@ -87,5 +87,33 @@ async getUserById(id: string): Promise<IUser | null> {
       role: UserRole;
     };
   }
+
+
+
+
+async findOrCreateGoogleUser(profile: any) {
+  let user = await User.findOne({ googleId: profile.id || profile.sub });
+
+  if (!user) {
+    user = await User.findOne({ email: profile.emails[0].value || profile.email });
+    if (user) {
+      user.googleId = profile.id || profile.sub;
+      user.profileImage = profile.picture || profile.photos?.[0]?.value;
+      await user.save();
+    } else {
+      user = await User.create({
+        email: profile.email || profile.emails[0].value,
+        name: profile.displayName || profile.name?.givenName || 'User',
+        googleId: profile.id || profile.sub,
+        profileImage: profile.picture || profile.photos?.[0]?.value,
+        isVerified: true,
+        role: 'user',
+      });
+    }
+  }
+
+  return user;
+}
+
 }
 // Auth service methods would go here
