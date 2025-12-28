@@ -10,13 +10,8 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.get('/me',protect, authController.getMe);
 router.post('/logout', authController.logout);
-// Google OAuth
-// router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-// router.get(
-//   '/google/callback',
-//   passport.authenticate('google', { session: false }),
-//   authController.googleCallback
-// );
+// Add this route
+router.post('/google-token', authController.googleTokenLogin);
 
 const authRoutes = router;
 export default authRoutes;
