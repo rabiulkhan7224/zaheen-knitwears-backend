@@ -92,12 +92,13 @@ export class AuthController{
   }
 
   
- googleTokenLogin=async(req: Request, res: Response, next: NextFunction)=> {
+ googleTokenLogin=async(req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { token } = req.body;
 
     if (!token) {
-      return res.status(400).json({ success: false, message: 'No token provided' });
+      res.status(400).json({ success: false, message: 'No token provided' });
+      return;
     }
 
     // Verify Google ID token
@@ -109,7 +110,8 @@ export class AuthController{
     const payload = ticket.getPayload();
 
     if (!payload || !payload.email) {
-      return res.status(401).json({ success: false, message: 'Invalid Google token' });
+      res.status(401).json({ success: false, message: 'Invalid Google token' });
+      return;
     }
 
     // Find or create user
@@ -129,6 +131,7 @@ export class AuthController{
       success: true,
       message: 'Google login successful',
     });
+    return;
   } catch (error: any) {
     next(error);
   }

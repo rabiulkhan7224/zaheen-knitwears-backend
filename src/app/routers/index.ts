@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import productRoutes from '../modules/product/productRoutes';
 import authRoutes from '../modules/auth/authRoutes';
+import categoryRoutes from '../modules/Category/categoryRoutes';
 // import authRoutes from './authRoutes';
 // import productRoutes from './productRoutes';
 // import cartRoutes from './cartRoutes';
@@ -18,7 +19,7 @@ interface AppRoute {
 const routes: AppRoute[] = [
   { path: '/auth', route: authRoutes },
   { path: '/products', route: productRoutes },
-//   { path: '/categories', route: categoryRoutes },
+  { path: '/categories', route: categoryRoutes },
 //   { path: '/cart', route: cartRoutes, middlewares: [protect] },
 //   { path: '/orders', route: orderRoutes, middlewares: [protect] },
 //   { path: '/payment', route: paymentRoutes, middlewares: [protect] },
