@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthValidator } from "../../validators/authValidator";
 import { AuthService } from "./authService";
-
+import { OAuth2Client } from "google-auth-library";
+import { EnvConfig } from "../../../config/env";
+const googleClient = new OAuth2Client(EnvConfig.googleClientId);
 export class AuthController{
     private authService: AuthService;
     constructor(){
@@ -88,6 +90,51 @@ export class AuthController{
       next(error);
     }
   }
+
+  
+ googleTokenLogin=async(req: Request, res: Response, next: NextFunction)=> {
+  try {
+    const { token } = req.body;
+
+    if (!token) {
+      return res.status(400).json({ success: false, message: 'No token provided' });
+    }
+
+    // Verify Google ID token
+    const ticket = await googleClient.verifyIdToken({
+      idToken: token,
+      audience: EnvConfig.googleClientId,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload || !payload.email) {
+      return res.status(401).json({ success: false, message: 'Invalid Google token' });
+    }
+
+    // Find or create user
+    let user = await this.authService.findOrCreateGoogleUser({
+      id: payload.sub,
+      emails: [{ value: payload.email }],
+      displayName: payload.name,
+      name: { givenName: payload.given_name, familyName: payload.family_name },
+      photos: payload.picture ? [{ value: payload.picture }] : [],
+    });
+
+    // Set JWT cookie and respond
+    this.authService.sendTokenResponse(res, user,"Google login successful", 200);
+
+
+    res.json({
+      success: true,
+      message: 'Google login successful',
+    });
+  } catch (error: any) {
+    next(error);
+  }
+}
+
+
 
 }
 
