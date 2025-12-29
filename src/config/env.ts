@@ -16,4 +16,6 @@ static get jwtSecret(): string { return process.env.JWT_SECRET!; }
   static get stripeSecretKey(): string { return process.env.STRIPE_SECRET_KEY!; }
   static get stripeWebhookSecret(): string { return process.env.STRIPE_WEBHOOK_SECRET!; }
   static get frontendUrl(): string { return process.env.FRONTEND_URL!; }
+  static get nodeEnv(): string { return process.env.NODE_ENV!; }
+
 }

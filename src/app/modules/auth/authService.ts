@@ -12,7 +12,7 @@ export class AuthService {
   }
 
   private setAuthCookie(res: Response, token: string) {
-    const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = EnvConfig.nodeEnv === 'production';
 
     res.cookie('token', token, {
       httpOnly: true,           // JS can't access (prevents XSS)
@@ -27,8 +27,8 @@ export class AuthService {
   static clearAuthCookie(res: Response) {
     res.clearCookie('token', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'none',
+      secure: EnvConfig.nodeEnv === 'production',
+      sameSite: EnvConfig.nodeEnv === 'production' ? 'none' : 'none',
       path: '/',
     });
   }
@@ -116,4 +116,4 @@ async findOrCreateGoogleUser(profile: any) {
 }
 
 }
-// Auth service methods would go here
+

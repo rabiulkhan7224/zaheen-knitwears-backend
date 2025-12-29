@@ -5,6 +5,7 @@ import { Database } from './config/db';
 import router from './app/routers';
 import cookieParser from 'cookie-parser';
 import { globalErrorHandler } from './app/middleware/errorMiddleware';
+import { EnvConfig } from './config/env';
 
 const app:Application = express();
 app.use(express.json());
@@ -12,7 +13,7 @@ app.use(cookieParser());
 // CORS Configuration - MUST come before routes
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Your frontend URL
+    origin: [`${EnvConfig.frontendUrl}`,'http://localhost:3000' ], // Your frontend URL
     credentials: true, // ← Crucial: allows cookies to be sent
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
